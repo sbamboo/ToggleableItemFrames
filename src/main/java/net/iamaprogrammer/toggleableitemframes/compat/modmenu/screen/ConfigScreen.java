@@ -11,6 +11,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.CyclingButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.ColorHelper;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -55,16 +56,15 @@ public class ConfigScreen<C extends Config> extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, 0, 0, 0);
-        super.render(context, mouseX, mouseY, delta);
         for (int i = 0; i < this.widgets.size(); i++) {
 
             int posX = (this.width/2) - (BUTTON_WIDTH/2);
             int posY = ((BUTTON_HEIGHT*2) * i) + MARGIN_TOP;
 
             Text text = this.widgets.get(i).getLabel();
-            context.drawText(this.client.textRenderer, text, posX, posY, 16777215, true);
+            context.drawText(this.textRenderer, text, posX, posY, ColorHelper.getWhite(1.0f), true);
         }
+        super.render(context, mouseX, mouseY, delta);
     }
 
     private ButtonWidget saveButton() {
