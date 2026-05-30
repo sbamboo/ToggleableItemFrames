@@ -1,7 +1,6 @@
 package net.iamaprogrammer.toggleableitemframes;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.iamaprogrammer.toggleableitemframes.networking.VersionIdentifier;
@@ -18,8 +17,8 @@ public class ToggleableItemFrames implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		PayloadTypeRegistry.playC2S().register(ModVersionPacket.PACKET_ID, ModVersionPacket.PACKET_CODEC);
-		PayloadTypeRegistry.playS2C().register(ModVersionPacket.PACKET_ID, ModVersionPacket.PACKET_CODEC);
+		PayloadTypeRegistry.serverboundPlay().register(ModVersionPacket.PACKET_ID, ModVersionPacket.PACKET_CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(ModVersionPacket.PACKET_ID, ModVersionPacket.PACKET_CODEC);
 
 		ServerPlayNetworking.registerGlobalReceiver(ModVersionPacket.PACKET_ID, (payload, context) -> {
 			context.responseSender().sendPacket(new ModVersionPacket(VersionIdentifier.MOD_VERSION));

@@ -5,7 +5,7 @@ import net.iamaprogrammer.toggleableitemframes.compat.modmenu.widgets.IntSliderW
 import net.iamaprogrammer.toggleableitemframes.config.core.Config;
 import net.iamaprogrammer.toggleableitemframes.config.core.ConfigUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -55,16 +55,16 @@ public class ConfigScreen<C extends Config> extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
         for (int i = 0; i < this.widgets.size(); i++) {
 
             int posX = (this.width/2) - (BUTTON_WIDTH/2);
             int posY = ((BUTTON_HEIGHT*2) * i) + MARGIN_TOP;
 
             Component text = this.widgets.get(i).getLabel();
-            context.drawString(this.font, text, posX, posY, ARGB.white(1.0f), true);
+            graphics.text(this.font, text, posX, posY, ARGB.white(1.0f), true);
         }
-        super.render(context, mouseX, mouseY, delta);
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
     }
 
     private Button saveButton() {
@@ -111,10 +111,13 @@ public class ConfigScreen<C extends Config> extends Screen {
         }
 
         public <T> Builder<C> addCyclingButtonWidget(Component desc, List<T> values, UpdateCallback<C, T> callback, LoadCallback<C, T> loadCallback) {
-            CycleButton<T> widget = CycleButton.<T>builder((val) -> Component.nullToEmpty(String.valueOf(val)))
-                    .withValues(values)
-                    .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("toggleableitemframes.option.value"),
-                            (button, value) -> callback.modifyConfigCallback(this.config, value));
+            CycleButton<T> widget = CycleButton.<T>builder(
+                (val) -> Component.nullToEmpty(String.valueOf(val)),
+                values.getFirst()
+            )
+            .withValues(values)
+            .create(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, Component.translatable("toggleableitemframes.option.value"),
+                (button, value) -> callback.modifyConfigCallback(this.config, value));
             widget.setValue(loadCallback.onLoad(this.config));
             this.widgets.add(new ConfigItem(desc, widget));
             return this;

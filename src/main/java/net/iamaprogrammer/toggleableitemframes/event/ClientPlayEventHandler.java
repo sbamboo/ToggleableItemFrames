@@ -2,7 +2,6 @@ package net.iamaprogrammer.toggleableitemframes.event;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.iamaprogrammer.toggleableitemframes.ToggleableItemFramesClient;
 import net.iamaprogrammer.toggleableitemframes.networking.VersionIdentifier;
