@@ -6,9 +6,9 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.iamaprogrammer.toggleableitemframes.networking.VersionIdentifier;
 import net.iamaprogrammer.toggleableitemframes.networking.packets.ModVersionPacket;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.codec.ByteBufCodecs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

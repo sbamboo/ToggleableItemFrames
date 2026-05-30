@@ -1,22 +1,22 @@
 package net.iamaprogrammer.toggleableitemframes.compat.modmenu.screen;
 
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.network.chat.Component;
 
 public class ConfigItem {
-    private final Text label;
-    private final ClickableWidget widget;
+    private final Component label;
+    private final AbstractWidget widget;
 
-    public ConfigItem(Text label, ClickableWidget widget) {
+    public ConfigItem(Component label, AbstractWidget widget) {
         this.label = label;
         this.widget = widget;
     }
 
-    public Text getLabel() {
+    public Component getLabel() {
         return label;
     }
 
-    public ClickableWidget getWidget() {
+    public AbstractWidget getWidget() {
         return widget;
     }
 }

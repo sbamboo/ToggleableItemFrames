@@ -5,7 +5,7 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.iamaprogrammer.toggleableitemframes.ToggleableItemFramesClient;
 import net.iamaprogrammer.toggleableitemframes.compat.modmenu.screen.ConfigScreen;
 import net.iamaprogrammer.toggleableitemframes.config.CoreConfig;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ public class ModMenuCompat implements ModMenuApi {
                         CoreConfig.class,
                         (config) -> ToggleableItemFramesClient.CONFIG = config)
                 .addCyclingButtonWidget(
-                        Text.translatable("toggleableitemframes.option.desc.showinvisibleframeswhenheld"),
+                        Component.translatable("toggleableitemframes.option.desc.showinvisibleframeswhenheld"),
                         List.of(true, false),
                         CoreConfig::showInvisibleFramesWhenHeld,
                         CoreConfig::shouldShowInvisibleFramesWhenHeld
                 )
                 .addCyclingButtonWidget(
-                        Text.translatable("toggleableitemframes.option.desc.invonunsuportedservers"),
+                        Component.translatable("toggleableitemframes.option.desc.invonunsuportedservers"),
                         List.of(true, false),
                         CoreConfig::setInvisibleIfNotSupportedByServer,
                         CoreConfig::isInvisibleIfNotSupportedByServer

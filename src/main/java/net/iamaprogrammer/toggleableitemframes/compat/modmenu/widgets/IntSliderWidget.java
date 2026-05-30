@@ -2,17 +2,17 @@ package net.iamaprogrammer.toggleableitemframes.compat.modmenu.widgets;
 
 import net.iamaprogrammer.toggleableitemframes.compat.modmenu.screen.ConfigScreen;
 import net.iamaprogrammer.toggleableitemframes.config.core.Config;
-import net.minecraft.client.gui.widget.SliderWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.network.chat.Component;
 
-public class IntSliderWidget<C extends Config> extends SliderWidget {
+public class IntSliderWidget<C extends Config> extends AbstractSliderButton {
     private final int min;
     private final int max;
     private int intValue;
     private final ConfigScreen.UpdateCallback<C, Integer> callback;
     private final C config;
     protected IntSliderWidget(int x, int y, int width, int height, int min, int max, double value, C config, ConfigScreen.UpdateCallback<C, Integer> callback) {
-        super(x, y, width, height, Text.of(String.valueOf((int)value)), translateValue(value, min, max));
+        super(x, y, width, height, Component.nullToEmpty(String.valueOf((int)value)), translateValue(value, min, max));
         this.callback = callback;
         this.config = config;
         this.min = min;
@@ -24,7 +24,7 @@ public class IntSliderWidget<C extends Config> extends SliderWidget {
 
     @Override
     protected void updateMessage() {
-        this.setMessage(Text.of(String.valueOf(this.intValue)));
+        this.setMessage(Component.nullToEmpty(String.valueOf(this.intValue)));
     }
 
     @Override

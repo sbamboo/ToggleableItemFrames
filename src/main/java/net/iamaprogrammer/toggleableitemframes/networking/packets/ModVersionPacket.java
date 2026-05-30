@@ -2,22 +2,23 @@ package net.iamaprogrammer.toggleableitemframes.networking.packets;
 
 import io.netty.buffer.ByteBuf;
 import net.iamaprogrammer.toggleableitemframes.ToggleableItemFrames;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Uuids;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type;
+import net.minecraft.resources.Identifier;
+import net.minecraft.core.UUIDUtil;
 
 import java.util.UUID;
 
-public record ModVersionPacket(String version) implements CustomPayload {
-    public static final CustomPayload.Id<ModVersionPacket> PACKET_ID = new CustomPayload.Id<>(Identifier.of(
+public record ModVersionPacket(String version) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<ModVersionPacket> PACKET_ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(
             ToggleableItemFrames.MOD_ID, ToggleableItemFrames.MOD_ID + "_version_identifier"));
-    public static final PacketCodec<ByteBuf, ModVersionPacket> PACKET_CODEC = PacketCodecs.STRING.xmap(ModVersionPacket::new, ModVersionPacket::version).cast();
+    public static final StreamCodec<ByteBuf, ModVersionPacket> PACKET_CODEC = ByteBufCodecs.STRING_UTF8.map(ModVersionPacket::new, ModVersionPacket::version).cast();
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return PACKET_ID;
     }
 }
