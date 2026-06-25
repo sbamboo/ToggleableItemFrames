@@ -86,7 +86,7 @@ public class ConfigScreen<C extends Config> extends Screen {
     }
     private void closeScreen() {
         this.onClose();
-        Minecraft.getInstance().setScreen(this.parentScreen);
+        Minecraft.getInstance().gui.setScreen(this.parentScreen);
     }
     public static <C extends Config> Builder<C> builder(Screen parentScreen, C config, Class<C> configClass, SaveCallback<C> saveCallback) {
         return new Builder<>(parentScreen, config, configClass, saveCallback);
